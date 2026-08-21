@@ -1,0 +1,53 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc, i686-pc-windows-msvc
+
+      - uses: Swatinem/rust-cache@v2
+
+      - run: cargo test
+
+      - run: cargo build --release
+
+      - run: cargo build --release --target i686-pc-windows-msvc
+
+      - name: Stage binaries
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item target\release\mouse-mover.exe dist\mouse-mover-x64.exe
+          Copy-Item target\i686-pc-windows-msvc\release\mouse-mover.exe dist\mouse-mover-x86.exe
+
+      - name: Upload unsigned artifacts
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: mouse-mover
+          path: dist/*.exe
+          if-no-files-found: error
+
+      - name: Attach to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/mouse-mover-x64.exe
+            dist/mouse-mover-x86.exe
