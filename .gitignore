@@ -1,3 +1,4 @@
 /target
 /dist
+/msix-out
 *.pdb
