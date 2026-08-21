@@ -11,6 +11,7 @@
 ## 2026-08-21 — MSIX для Microsoft Store
 
 Пакет связан с записью Partner Center через `SFNVX.MouseMoverr` и Publisher
-`CN=D68EAD28-BEC2-4B13-B878-F1F336C12B72`. CI собирает x86 и x64 MSIX, bundle
-и `.msixupload` с PDB-символами. В репозитории не хранится сертификат: артефакт
-предназначен для Partner Center, который подписывает Store-распространение.
+`CN=D68EAD28-BEC2-4B13-B878-F1F336C12B72`; зарезервированное отображаемое имя —
+`Mouse Moverr`. CI собирает x86 и x64 MSIX, bundle и `.msixupload` с
+PDB-символами. В репозитории не хранится сертификат: артефакт предназначен для
+Partner Center, который подписывает Store-распространение.

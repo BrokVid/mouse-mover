@@ -25,8 +25,8 @@ cargo build --release --target i686-pc-windows-msvc
 ### Microsoft Store (MSIX)
 
 `main`, pull request, теги `v*` и ручной запуск workflow собирают x86/x64
-`msixbundle` и `msixupload` для Partner Center. Идентификаторы пакета уже
-привязаны к продукту Store `9NWHTNQH7ZJ4`.
+`msixbundle` и `msixupload` для Partner Center. Идентичность и отображаемое
+имя `Mouse Moverr` уже привязаны к продукту Store `9NWHTNQH7ZJ4`.
 
 Для локальной сборки нужен Windows 10/11 SDK с `MakeAppx.exe`:
 
