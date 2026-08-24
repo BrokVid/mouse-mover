@@ -12,6 +12,8 @@
 
 Пакет связан с записью Partner Center через `SFNVX.MouseMoverr` и Publisher
 `CN=D68EAD28-BEC2-4B13-B878-F1F336C12B72`; зарезервированное отображаемое имя —
-`Mouse Moverr`. CI собирает x86 и x64 MSIX, bundle и `.msixupload` с
-PDB-символами. В репозитории не хранится сертификат: артефакт предназначен для
+`Mouse Moverr`. CI собирает x86, x64 и arm64 MSIX, bundle и `.msixupload` с
+PDB-символами. `runFullTrust` в манифесте обязателен (валидация MakeAppx),
+вопрос Partner Center про restricted capability — штатный, не блокер.
+В репозитории не хранится сертификат: артефакт предназначен для
 Partner Center, который подписывает Store-распространение.

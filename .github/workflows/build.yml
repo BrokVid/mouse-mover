@@ -20,7 +20,7 @@ jobs:
 
       - uses: dtolnay/rust-toolchain@stable
         with:
-          targets: x86_64-pc-windows-msvc, i686-pc-windows-msvc
+          targets: x86_64-pc-windows-msvc, i686-pc-windows-msvc, aarch64-pc-windows-msvc
 
       - uses: Swatinem/rust-cache@v2
 
@@ -29,6 +29,8 @@ jobs:
       - run: cargo build --release
 
       - run: cargo build --release --target i686-pc-windows-msvc
+
+      - run: cargo build --release --target aarch64-pc-windows-msvc
 
       - name: Stage binaries
         run: |

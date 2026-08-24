@@ -24,7 +24,7 @@ cargo build --release --target i686-pc-windows-msvc
 
 ### Microsoft Store (MSIX)
 
-`main`, pull request, теги `v*` и ручной запуск workflow собирают x86/x64
+`main`, pull request, теги `v*` и ручной запуск workflow собирают x86/x64/arm64
 `msixbundle` и `msixupload` для Partner Center. Идентичность и отображаемое
 имя `Mouse Moverr` уже привязаны к продукту Store `9NWHTNQH7ZJ4`.
 
@@ -33,6 +33,7 @@ cargo build --release --target i686-pc-windows-msvc
 ```powershell
 cargo build --release
 cargo build --release --target i686-pc-windows-msvc
+cargo build --release --target aarch64-pc-windows-msvc
 .\scripts\pack-msix.ps1
 ```
 

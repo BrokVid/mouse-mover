@@ -67,13 +67,13 @@ function New-Logo {
 }
 
 $packagePaths = @()
-foreach ($architecture in @('x86', 'x64')) {
-    $target = if ($architecture -eq 'x86') {
-        Join-Path $repoRoot 'target\i686-pc-windows-msvc\release'
-    }
-    else {
-        Join-Path $repoRoot 'target\release'
-    }
+$architectureTargets = @{
+    x86   = 'target\i686-pc-windows-msvc\release'
+    x64   = 'target\release'
+    arm64 = 'target\aarch64-pc-windows-msvc\release'
+}
+foreach ($architecture in $architectureTargets.Keys) {
+    $target = Join-Path $repoRoot $architectureTargets[$architecture]
     $exe = Join-Path $target 'mouse-mover.exe'
     $pdb = Join-Path $target 'mouse_mover.pdb'
     if (-not (Test-Path $exe) -or -not (Test-Path $pdb)) {
@@ -107,7 +107,7 @@ New-Item -ItemType Directory -Force $bundleDir | Out-Null
 foreach ($packagePath in $packagePaths) {
     Copy-Item $packagePath $bundleDir
 }
-$bundlePath = Join-Path $outDir "MouseMover_$Version`_x86_x64.msixbundle"
+$bundlePath = Join-Path $outDir "MouseMover_$Version`_x86_x64_arm64.msixbundle"
 & $makeAppx bundle /d $bundleDir /p $bundlePath /bv $Version /o
 if ($LASTEXITCODE -ne 0) {
     throw 'MakeAppx failed while creating the MSIX bundle.'
@@ -117,7 +117,7 @@ $uploadDir = Join-Path $outDir 'upload'
 New-Item -ItemType Directory -Force $uploadDir | Out-Null
 Copy-Item $bundlePath $uploadDir
 Get-ChildItem -Path $outDir -Filter '*.appxsym' | Copy-Item -Destination $uploadDir
-$uploadZip = Join-Path $outDir "MouseMover_$Version`_x86_x64.zip"
+$uploadZip = Join-Path $outDir "MouseMover_$Version`_x86_x64_arm64.zip"
 Compress-Archive -Path (Join-Path $uploadDir '*') -DestinationPath $uploadZip -CompressionLevel Optimal
 $uploadPath = [System.IO.Path]::ChangeExtension($uploadZip, '.msixupload')
 Move-Item $uploadZip $uploadPath
