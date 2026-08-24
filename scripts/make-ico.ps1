@@ -7,7 +7,7 @@ param(
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 
-$pngSizes = @(16, 24, 32, 48, 64, 128, 256)
+$pngSizes = @(16, 24, 32, 48, 64)
 
 function New-ScaledBitmap {
     param([Parameter(Mandatory)] [int]$Size)
